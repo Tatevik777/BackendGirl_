@@ -1,9 +1,6 @@
 package by.tatevik.week7;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
 
@@ -23,6 +20,10 @@ public class Main {
         String brackets2 = "([{)]}";
         System.out.println(isValid(brackets));
         System.out.println(isValid(brackets2));
+
+        String str1="Hello world!";
+        countSymbols(str1);
+
     }
 
     public static int[] removeDuplicates(int[] nums) {
@@ -49,5 +50,20 @@ public class Main {
             }
         }
         return isCorrect;
+    }
+    public static void countSymbols(String str1){
+        Map<Character, Integer> map=new HashMap<>();
+        int size=str1.length();
+        for (int i=0;i<size;i++){
+            char ch=str1.charAt(i);
+            Integer value=map.get(ch);
+            if(value==null){
+                value=1;
+            }else {
+                value++;
+            }
+            map.put(ch,value);
+        }
+        System.out.println(map);
     }
 }
