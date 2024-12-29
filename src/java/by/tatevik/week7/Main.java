@@ -66,4 +66,9 @@ public class Main {
         }
         System.out.println(map);
     }
+
+    public static void removeEvenEl(){
+
+
+    }
 }
