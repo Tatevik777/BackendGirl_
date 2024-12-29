@@ -24,6 +24,8 @@ public class Main {
         String str1="Hello world!";
         countSymbols(str1);
 
+        removeEvenEl();
+
     }
 
     public static int[] removeDuplicates(int[] nums) {
@@ -68,7 +70,34 @@ public class Main {
     }
 
     public static void removeEvenEl(){
+        // Создание связного списка и добавление элементов
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        list.add(8);
+        list.add(9);
+        list.add(10);
 
+        // Вывод исходного списка
+        System.out.println("Исходный список: " + list);
+
+        // Используем итератор для удаления четных чисел
+        Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Integer number = iterator.next();
+            if (number % 2 == 0) {
+                iterator.remove(); // Удаление четного элемента
+            }
+        }
+
+        // Вывод измененного списка
+        System.out.println("Список после удаления четных чисел: " + list);
+    }
 
     }
-}
+
