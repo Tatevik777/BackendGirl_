@@ -1,32 +1,24 @@
 package by.tatevik.week8;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         //задние 1
-        String[][] students = {
-                {"Иванов", "4.5"},
-                {"Петров", "3.7"},
-                {"Сидоров", "4.2"},
-                {"Козлов", "5.0"},
-                {"Смирнов", "3.9"}};
-        sortStudentByGrade(students);
+        List<String> names = Arrays.asList("Иван", "Анна", "Петр", "Мария");
+        List<Double> grades = Arrays.asList(4.5, 3.8, 4.9, 4.2);
         // Вывод отсортированного списка
         System.out.println("Сортированный список студентов по убыванию среднего балла:");
-        for (String[] student : students) {
-            System.out.println(Arrays.toString(student));
-        }
+        sortStudentByGrade(names, grades);
 
         //задание2
-        String[] fruits = {"apple", "orange", "grape", "banana", "pineapple", "fig"};
-        stringSort(fruits, 0, fruits.length - 1);//length-1=последний элемент
-        System.out.println("\nСортированный в алфавитном порядке список:");
-        System.out.println(Arrays.toString(fruits));
+        List<String> strings = new ArrayList<>(Arrays.asList("banana", "apple", "orange", "grape", "kiwi"));
+        System.out.println("Исходный список: " + strings);
+        stringSort(strings);
+        System.out.println("Отсортированный список: " + strings);
 
         //Задание 3
+        String[] fruits = {"apple", "orange", "grape", "banana", "pineapple", "fig"};
         sortStringByLength(fruits, 0, fruits.length - 1);
         System.out.println("\nСортированный список по длине слов в них:");
         System.out.println(Arrays.toString(fruits));
@@ -60,41 +52,51 @@ public class Main {
 
     //У вас есть список студентов и их средние баллы.
     // Необходимо отсортировать список по убыванию среднего балла.
-    public static void sortStudentByGrade(String[][] students) {
-        int n = students.length;
-        for (int i = 0; i < n; i++) {
+    public static void sortStudentByGrade(List<String> names, List<Double> scores) {
+        // Список для хранения объектов студента
+        List<Map.Entry<String, Double>> studentList = new ArrayList<>();
+
+        for (int i = 0; i < names.size(); i++) {
+            studentList.add(new AbstractMap.SimpleEntry<>(names.get(i), scores.get(i)));
+        }
+
+        // Сортировка пузырьком
+        int n = studentList.size();
+        for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                // Сравниваем баллы (преобразуем строку в число)
-                if (Double.parseDouble(students[j][1]) < Double.parseDouble(students[j + 1][1])) {
-                    // Меняем местами
-                    String[] temp = students[j];
-                    students[j] = students[j + 1];
-                    students[j + 1] = temp;
+                if (studentList.get(j).getValue() < studentList.get(j + 1).getValue()) {
+                    // Обмен элементов
+                    Map.Entry<String, Double> temp = studentList.get(j);
+                    studentList.set(j, studentList.get(j + 1));
+                    studentList.set(j + 1, temp);
                 }
             }
         }
     }
 
-    //Напишите программу, которая будет сортировать список строк в алфавитном порядке.
-    public static void stringSort(String[] arr, int low, int high) {
-        if (low < high) {
-            String baseElem = arr[high];
-            int i = low - 1;
-            for (int j = low; j < high; j++) {
-                if (arr[j].compareTo(baseElem) <= 0) {
-                    i++;
-                    String temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-            String temp = arr[i + 1];
-            arr[i + 1] = arr[high];
-            arr[high] = temp;
 
-            stringSort(arr, low, i);
-            stringSort(arr, i + 2, high);
+    //Напишите программу, которая будет сортировать список строк в алфавитном порядке.
+    public static void stringSort(List<String> list) {
+        if (list.size() < 2) {
+            return;
         }
+        String baseElem = list.get(list.size() - 1); // Опорный элемент
+        List<String> lessThanBaseElem = new ArrayList<>();
+        List<String> greaterThanBaseElem = new ArrayList<>();
+
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i).compareTo(baseElem) <= 0) {
+                lessThanBaseElem.add(list.get(i));
+            } else {
+                greaterThanBaseElem.add(list.get(i));
+            }
+        }
+        stringSort(lessThanBaseElem);
+        stringSort(greaterThanBaseElem);
+        list.clear();
+        list.addAll(lessThanBaseElem);
+        list.add(baseElem);
+        list.addAll(greaterThanBaseElem);
     }
 
     //Напишите программу, которая будет сортировать массив строк по длине слов в них. от меньшего к большему
@@ -179,7 +181,8 @@ public class Main {
             array[i] = temp;
         }
     }
-//метод для подсчета количества знаков операций в формуле
+
+    //метод для подсчета количества знаков операций в формуле
     public static int getOperationCount(String formula) {
         int count = 0;
         for (char c : formula.toCharArray()) {
