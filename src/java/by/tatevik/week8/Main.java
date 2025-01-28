@@ -28,7 +28,7 @@ public class Main {
 
         //Задание 3
         sortStringByLength(fruits, 0, fruits.length - 1);
-        System.out.println("\nСортированный список формул по возрастанию сложности:");
+        System.out.println("\nСортированный список по длине слов в них:");
         System.out.println(Arrays.toString(fruits));
 
         //Задание 4
@@ -40,7 +40,7 @@ public class Main {
         wordsList.add("вишня");
 
         sortByWovelsAmmount(wordsList);
-        System.out.println("\nСортированный список по длине слов в них:");
+        System.out.println("\nСортированный список  по количеству гласных букв в слове:");
         System.out.println(wordsList);
 
         //Задание5
