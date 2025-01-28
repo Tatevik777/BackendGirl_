@@ -72,6 +72,9 @@ public class Main {
                 }
             }
         }
+        for (Map.Entry<String, Double> entry : studentList) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
 
