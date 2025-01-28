@@ -8,14 +8,14 @@ public class Main {
         List<String> names = Arrays.asList("Иван", "Анна", "Петр", "Мария");
         List<Double> grades = Arrays.asList(4.5, 3.8, 4.9, 4.2);
         // Вывод отсортированного списка
-        System.out.println("Сортированный список студентов по убыванию среднего балла:");
+        System.out.println("\nСортированный список студентов по убыванию среднего балла:");
         sortStudentByGrade(names, grades);
 
         //задание2
         List<String> strings = new ArrayList<>(Arrays.asList("banana", "apple", "orange", "grape", "kiwi"));
-        System.out.println("Исходный список: " + strings);
+        System.out.println("\nИсходный список: " + strings);
         stringSort(strings);
-        System.out.println("Отсортированный список: " + strings);
+        System.out.println("\nОтсортированный список: " + strings);
 
         //Задание 3
         String[] fruits = {"apple", "orange", "grape", "banana", "pineapple", "fig"};
@@ -36,18 +36,25 @@ public class Main {
         System.out.println(wordsList);
 
         //Задание5
-        String[] formulas = {
-                "3 + 5",
-                "(1 + 2) * 3",
-                "4 * (2 + 3) - 5",
-                "10 / (2 - 1) + 6 * 3",
-                "7 + 8 + 9"};
+        List<String> formulas = new ArrayList<>();
+        formulas.add("8 / 2 + 3 * (5 - 2)");
+        formulas.add("3 + 5");
+        formulas.add("5 - (3 + 2) * 2");
+        formulas.add("2 + 3 * 4");
+        formulas.add("(1 + 2) * 3");
 
-        sortByDifficulty(formulas);
-        System.out.println("\nСортированный список формул по возрастанию сложности:");
+        System.out.println("\nИсходный список формул:");
         for (String formula : formulas) {
             System.out.println(formula);
         }
+
+        sortByDifficulty(formulas);
+
+        System.out.println("\nОтсортированный список формул по сложности:");
+        for (String formula : formulas) {
+            System.out.println(formula);
+        }
+
     }
 
     //У вас есть список студентов и их средние баллы.
@@ -169,23 +176,25 @@ public class Main {
     // операций (+, -, *, /) и скобки. Сложность формулы определяется числом
     // операций, которые нужно выполнить, чтобы вычислить ее значение.
     // Напишите программу, которая будет сортировать список формул по возрастанию сложности.
-    public static void sortByDifficulty(String[] array) {
-        int n = array.length;
+    public static void sortByDifficulty(List<String> formulas) {
+        int n = formulas.size();
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (getOperationCount(array[j]) < getOperationCount(array[minIndex])) {
+                if (getOperationCount(formulas.get(j)) < getOperationCount(formulas.get(minIndex))) {
                     minIndex = j;
                 }
             }
-            // Меняем местами
-            String temp = array[minIndex];
-            array[minIndex] = array[i];
-            array[i] = temp;
+            // Обмен местами формул с минимальной сложностью
+            if (minIndex != i) {
+                String temp = formulas.get(i);
+                formulas.set(i, formulas.get(minIndex));
+                formulas.set(minIndex, temp);
+            }
         }
     }
 
-    //метод для подсчета количества знаков операций в формуле
+    //метод для подсчета количества знаков операций в формуле/сложности
     public static int getOperationCount(String formula) {
         int count = 0;
         for (char c : formula.toCharArray()) {
