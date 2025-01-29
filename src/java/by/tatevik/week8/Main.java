@@ -47,14 +47,11 @@ public class Main {
         for (String formula : formulas) {
             System.out.println(formula);
         }
-
         sortByDifficulty(formulas);
-
         System.out.println("\nОтсортированный список формул по сложности:");
         for (String formula : formulas) {
             System.out.println(formula);
         }
-
     }
 
     //У вас есть список студентов и их средние баллы.
@@ -66,7 +63,6 @@ public class Main {
         for (int i = 0; i < names.size(); i++) {
             studentList.add(new AbstractMap.SimpleEntry<>(names.get(i), scores.get(i)));
         }
-
         // Сортировка пузырьком
         int n = studentList.size();
         for (int i = 0; i < n - 1; i++) {
@@ -193,7 +189,6 @@ public class Main {
             }
         }
     }
-
     //метод для подсчета количества знаков операций в формуле/сложности
     public static int getOperationCount(String formula) {
         int count = 0;
