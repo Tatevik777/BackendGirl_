@@ -24,6 +24,8 @@ public class Main {
         String str1="Hello world!";
         countSymbols(str1);
 
+
+
     }
 
     public static int[] removeDuplicates(int[] nums) {
